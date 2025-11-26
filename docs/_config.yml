@@ -1,0 +1,23 @@
+title: Brody Orchard
+description: Computer Science & Software Engineering Portfolio
+theme: jekyll-theme-cayman
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Projects
+    url: /projects
+  - title: Skills
+    url: /skills
+  - title: Education
+    url: /education
+  - title: Experience
+    url: /experience
+  - title: Contact
+    url: /contact

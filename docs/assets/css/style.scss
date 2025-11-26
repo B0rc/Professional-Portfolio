@@ -1,0 +1,424 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/* Custom styles for Brody Orchard Portfolio */
+
+:root {
+  --primary-color: #1e3a5f;
+  --secondary-color: #3d5a80;
+  --accent-color: #ee6c4d;
+  --text-color: #293241;
+  --light-bg: #f8f9fa;
+  --card-bg: #ffffff;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Navigation */
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--light-bg);
+}
+
+.main-nav a {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: var(--secondary-color);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  font-size: 1.25rem;
+  color: var(--secondary-color);
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: #666;
+}
+
+/* Stats Section */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.stat-card {
+  background: var(--light-bg);
+  padding: 1.5rem;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.stat-card h3 {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.stat-card p {
+  margin: 0.5rem 0 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Section Styling */
+section {
+  margin: 2rem 0;
+}
+
+section h2 {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--light-bg);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Highlights */
+.highlights ul {
+  list-style: none;
+  padding: 0;
+}
+
+.highlights li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--light-bg);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  margin: 0.5rem;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-secondary:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.cta {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+/* Projects Page */
+.projects-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: var(--light-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.project-card h2 {
+  border: none;
+  padding: 0;
+  margin-bottom: 0.5rem;
+}
+
+.project-meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tech-stack span {
+  background: var(--secondary-color);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+/* Skills Page */
+.skills-section {
+  margin-bottom: 2rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.skill-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  background: var(--light-bg);
+  border-radius: 4px;
+}
+
+.skill-name {
+  font-weight: 500;
+}
+
+.skill-level {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* Education Page */
+.degree-info {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.degree-meta {
+  color: #666;
+}
+
+.academic-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 1rem 0;
+}
+
+.year-section {
+  margin: 2rem 0;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.course-card {
+  padding: 1rem;
+  background: var(--light-bg);
+  border-radius: 4px;
+  border-left: 4px solid #999;
+}
+
+.course-card.hd {
+  border-color: #28a745;
+}
+
+.course-card.distinction {
+  border-color: #007bff;
+}
+
+.course-card.credit {
+  border-color: #ffc107;
+}
+
+.course-card h3 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+.course-code {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0;
+}
+
+.grade {
+  font-weight: bold;
+  margin: 0.5rem 0 0;
+}
+
+.grade-legend {
+  background: var(--light-bg);
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 2rem;
+}
+
+.grade-legend h3 {
+  margin-top: 0;
+}
+
+/* Experience Page */
+.experience-entry {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--light-bg);
+}
+
+.job-header h2 {
+  margin-bottom: 0.25rem;
+  border: none;
+  padding: 0;
+}
+
+.company {
+  color: var(--secondary-color);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.job-content h3 {
+  font-size: 1rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.highlight {
+  text-align: center;
+  padding: 1rem;
+  background: var(--light-bg);
+  border-radius: 8px;
+}
+
+.highlight h3 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.highlight p {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+}
+
+/* Contact Page */
+.contact-intro {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.contact-item {
+  text-align: center;
+  padding: 1rem;
+  background: var(--light-bg);
+  border-radius: 8px;
+}
+
+.contact-item h3 {
+  margin: 0 0 0.5rem;
+  color: var(--primary-color);
+}
+
+.contact-item a {
+  color: var(--secondary-color);
+}
+
+.reference-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.reference-item {
+  background: var(--light-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--secondary-color);
+}
+
+.reference-item h3 {
+  margin: 0 0 0.25rem;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+.reference-title {
+  color: var(--secondary-color);
+  font-weight: 500;
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+}
+
+.reference-item p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.reference-item a {
+  color: var(--secondary-color);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .academic-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .main-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+}
