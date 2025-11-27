@@ -1,0 +1,13 @@
+<div class="card animate-card {{ include.class }}">
+  {% if include.icon %}
+  <div class="card-icon {{ include.icon_class }}">
+    {{ include.icon }}
+  </div>
+  {% endif %}
+  <div class="card-content">
+    {% if include.title %}<h3>{{ include.title }}</h3>{% endif %}
+    {% if include.meta %}<p class="card-meta">{{ include.meta }}</p>{% endif %}
+    {% if include.description %}<p>{{ include.description }}</p>{% endif %}
+    {% if include.content %}{{ include.content }}{% endif %}
+  </div>
+</div>
