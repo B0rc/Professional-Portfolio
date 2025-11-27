@@ -1,7 +1,7 @@
 title: Brody Orchard
 description: Computer Science & Software Engineering Portfolio
-baseurl: ""
-url: ""
+baseurl: "/Professional-Portfolio"
+url: "https://b0rc.github.io"
 
 # Build settings
 markdown: kramdown
