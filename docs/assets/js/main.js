@@ -196,95 +196,26 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Carousel Slideshow System
-class Carousel {
-  constructor(carouselElement) {
-    this.carousel = carouselElement;
-    this.slides = carouselElement.querySelectorAll('.carousel-slide');
-    this.indicators = carouselElement.querySelectorAll('.indicator');
-    this.currentSlide = 0;
-    this.intervalId = null;
-    this.isPaused = false;
-
-    this.init();
-  }
-
-  init() {
-    // Set up indicator click handlers
-    this.indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.goToSlide(index);
-      });
-    });
-
-    // Pause on hover
-    this.carousel.addEventListener('mouseenter', () => {
-      this.pause();
-    });
-
-    this.carousel.addEventListener('mouseleave', () => {
-      this.resume();
-    });
-
-    // Start auto-advance
-    this.start();
-  }
-
-  goToSlide(index) {
-    // Remove active class from current slide and indicator
-    this.slides[this.currentSlide].classList.remove('active');
-    this.indicators[this.currentSlide].classList.remove('active');
-
-    // Add active class to new slide and indicator
-    this.currentSlide = index;
-    this.slides[this.currentSlide].classList.add('active');
-    this.indicators[this.currentSlide].classList.add('active');
-  }
-
-  nextSlide() {
-    const next = (this.currentSlide + 1) % this.slides.length;
-    this.goToSlide(next);
-  }
-
-  start() {
-    this.intervalId = setInterval(() => {
-      if (!this.isPaused) {
-        this.nextSlide();
-      }
-    }, 4500); // 4.5 seconds per slide
-  }
-
-  pause() {
-    this.isPaused = true;
-  }
-
-  resume() {
-    this.isPaused = false;
-  }
-
-  stop() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
-  }
-}
-
-// Lightbox Modal System
+// Lightbox Modal System with Image Navigation
 class Lightbox {
   constructor() {
     this.modal = null;
+    this.images = [];
+    this.currentIndex = 0;
     this.init();
   }
 
   init() {
-    // Create modal HTML
+    // Create modal HTML with navigation arrows
     this.modal = document.createElement('div');
     this.modal.className = 'lightbox-modal';
     this.modal.innerHTML = `
       <div class="lightbox-content">
         <span class="lightbox-close">&times;</span>
+        <button class="lightbox-prev" aria-label="Previous image">&lsaquo;</button>
         <img src="" alt="Full size image" class="lightbox-image">
+        <button class="lightbox-next" aria-label="Next image">&rsaquo;</button>
+        <div class="lightbox-counter"></div>
       </div>
     `;
     document.body.appendChild(this.modal);
@@ -300,44 +231,92 @@ class Lightbox {
       this.close();
     });
 
-    // ESC key handler
+    // Navigation handlers
+    this.modal.querySelector('.lightbox-prev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.prev();
+    });
+
+    this.modal.querySelector('.lightbox-next').addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.next();
+    });
+
+    // Keyboard handlers
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.modal.classList.contains('active')) {
-        this.close();
+      if (this.modal.classList.contains('active')) {
+        if (e.key === 'Escape') {
+          this.close();
+        } else if (e.key === 'ArrowLeft') {
+          this.prev();
+        } else if (e.key === 'ArrowRight') {
+          this.next();
+        }
       }
     });
   }
 
-  open(imageSrc) {
-    const img = this.modal.querySelector('.lightbox-image');
-    img.src = imageSrc;
+  open(images, startIndex = 0) {
+    this.images = images;
+    this.currentIndex = startIndex;
+    this.showImage();
     this.modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent background scroll
+    document.body.style.overflow = 'hidden';
+  }
+
+  showImage() {
+    const img = this.modal.querySelector('.lightbox-image');
+    const counter = this.modal.querySelector('.lightbox-counter');
+
+    img.src = this.images[this.currentIndex];
+    counter.textContent = `${this.currentIndex + 1} / ${this.images.length}`;
+
+    // Show/hide navigation buttons based on image count
+    const prevBtn = this.modal.querySelector('.lightbox-prev');
+    const nextBtn = this.modal.querySelector('.lightbox-next');
+
+    if (this.images.length > 1) {
+      prevBtn.style.display = 'block';
+      nextBtn.style.display = 'block';
+    } else {
+      prevBtn.style.display = 'none';
+      nextBtn.style.display = 'none';
+    }
+  }
+
+  next() {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    this.showImage();
+  }
+
+  prev() {
+    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+    this.showImage();
   }
 
   close() {
     this.modal.classList.remove('active');
-    document.body.style.overflow = ''; // Restore scroll
+    document.body.style.overflow = '';
   }
 }
 
-// Initialize carousels and lightbox
+// Initialize lightbox and card click handlers
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize all carousels
-  const carousels = document.querySelectorAll('.interest-carousel');
-  const carouselInstances = [];
-
-  carousels.forEach(carousel => {
-    carouselInstances.push(new Carousel(carousel));
-  });
-
-  // Initialize lightbox
   const lightbox = new Lightbox();
 
-  // Add click handlers to all carousel images
-  document.querySelectorAll('.carousel-slide').forEach(slide => {
-    slide.addEventListener('click', () => {
-      lightbox.open(slide.src);
-    });
+  // Add click handlers to each interest card
+  document.querySelectorAll('.interest-card').forEach(card => {
+    const carousel = card.querySelector('.interest-carousel');
+    if (carousel) {
+      // Get all image sources from this card
+      const slides = carousel.querySelectorAll('.carousel-slide');
+      const imageSources = Array.from(slides).map(slide => slide.src);
+
+      // Make the entire card clickable
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        lightbox.open(imageSources, 0);
+      });
+    }
   });
 });
