@@ -195,3 +195,149 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
+// Carousel Slideshow System
+class Carousel {
+  constructor(carouselElement) {
+    this.carousel = carouselElement;
+    this.slides = carouselElement.querySelectorAll('.carousel-slide');
+    this.indicators = carouselElement.querySelectorAll('.indicator');
+    this.currentSlide = 0;
+    this.intervalId = null;
+    this.isPaused = false;
+
+    this.init();
+  }
+
+  init() {
+    // Set up indicator click handlers
+    this.indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.goToSlide(index);
+      });
+    });
+
+    // Pause on hover
+    this.carousel.addEventListener('mouseenter', () => {
+      this.pause();
+    });
+
+    this.carousel.addEventListener('mouseleave', () => {
+      this.resume();
+    });
+
+    // Start auto-advance
+    this.start();
+  }
+
+  goToSlide(index) {
+    // Remove active class from current slide and indicator
+    this.slides[this.currentSlide].classList.remove('active');
+    this.indicators[this.currentSlide].classList.remove('active');
+
+    // Add active class to new slide and indicator
+    this.currentSlide = index;
+    this.slides[this.currentSlide].classList.add('active');
+    this.indicators[this.currentSlide].classList.add('active');
+  }
+
+  nextSlide() {
+    const next = (this.currentSlide + 1) % this.slides.length;
+    this.goToSlide(next);
+  }
+
+  start() {
+    this.intervalId = setInterval(() => {
+      if (!this.isPaused) {
+        this.nextSlide();
+      }
+    }, 4500); // 4.5 seconds per slide
+  }
+
+  pause() {
+    this.isPaused = true;
+  }
+
+  resume() {
+    this.isPaused = false;
+  }
+
+  stop() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+}
+
+// Lightbox Modal System
+class Lightbox {
+  constructor() {
+    this.modal = null;
+    this.init();
+  }
+
+  init() {
+    // Create modal HTML
+    this.modal = document.createElement('div');
+    this.modal.className = 'lightbox-modal';
+    this.modal.innerHTML = `
+      <div class="lightbox-content">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="Full size image" class="lightbox-image">
+      </div>
+    `;
+    document.body.appendChild(this.modal);
+
+    // Close handlers
+    this.modal.addEventListener('click', (e) => {
+      if (e.target === this.modal) {
+        this.close();
+      }
+    });
+
+    this.modal.querySelector('.lightbox-close').addEventListener('click', () => {
+      this.close();
+    });
+
+    // ESC key handler
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.modal.classList.contains('active')) {
+        this.close();
+      }
+    });
+  }
+
+  open(imageSrc) {
+    const img = this.modal.querySelector('.lightbox-image');
+    img.src = imageSrc;
+    this.modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+  }
+
+  close() {
+    this.modal.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scroll
+  }
+}
+
+// Initialize carousels and lightbox
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize all carousels
+  const carousels = document.querySelectorAll('.interest-carousel');
+  const carouselInstances = [];
+
+  carousels.forEach(carousel => {
+    carouselInstances.push(new Carousel(carousel));
+  });
+
+  // Initialize lightbox
+  const lightbox = new Lightbox();
+
+  // Add click handlers to all carousel images
+  document.querySelectorAll('.carousel-slide').forEach(slide => {
+    slide.addEventListener('click', () => {
+      lightbox.open(slide.src);
+    });
+  });
+});
