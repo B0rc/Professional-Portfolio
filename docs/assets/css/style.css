@@ -182,6 +182,18 @@ a:hover {
   color: var(--bg-dark);
 }
 
+.profile-photo {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow-glow);
+  border: 4px solid var(--primary-purple);
+  animation: pulse 3s ease-in-out infinite;
+  display: block;
+}
+
 .hero-title {
   margin-bottom: var(--spacing-sm);
   animation: fadeInUp 0.8s ease 0.2s both;
@@ -800,6 +812,119 @@ a:hover {
   .card-grid-wide {
     grid-template-columns: 1fr;
   }
+
+  .interest-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* About Me Page Styles */
+.about-intro {
+  margin-bottom: var(--spacing-lg);
+}
+
+.about-text {
+  background: var(--bg-card);
+  padding: var(--spacing-md);
+  border-radius: 16px;
+  border-left: 4px solid var(--primary-purple);
+}
+
+.about-text p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.interest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+.interest-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(184, 164, 212, 0.1);
+  transition: all 0.3s ease;
+}
+
+.interest-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-purple);
+}
+
+.interest-image {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.interest-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.interest-card:hover .interest-image img {
+  transform: scale(1.05);
+}
+
+.interest-content {
+  padding: var(--spacing-md);
+}
+
+.interest-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--primary-purple);
+}
+
+.interest-content p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.philosophy-connection {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-lg) 0;
+}
+
+.philosophy-card {
+  background: linear-gradient(135deg, rgba(147, 112, 219, 0.1), rgba(184, 164, 212, 0.1));
+  padding: var(--spacing-lg);
+  border-radius: 16px;
+  border: 1px solid rgba(184, 164, 212, 0.2);
+  text-align: center;
+}
+
+.philosophy-card h2 {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-md);
+  background: var(--gradient-purple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.philosophy-card p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.philosophy-highlight {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--primary-purple);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 2px solid rgba(184, 164, 212, 0.2);
 }
 
 @media (max-width: 480px) {
